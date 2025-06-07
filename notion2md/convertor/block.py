@@ -196,7 +196,7 @@ def heading_3(info: dict) -> str:
 
 
 def callout(info: dict) -> str:
-    return f"{info['icon']} {info['text']}"
+    return f">{info['icon']}\n>\n>{info['text']}"
 
 
 def quote(info: dict) -> str:
