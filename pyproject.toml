@@ -1,33 +1,32 @@
-[tool]
-[tool.poetry]
+[project]
 name = "notion2md"
 version = "2.9.0"
 description = "Notion Markdown Exporter with Python Cli"
-license = "MIT"
-classifiers = ["License :: OSI Approved :: MIT License", "Operating System :: OS Independent", "Programming Language :: Python :: 3.9"]
-homepage = "https://github.com/echo724/notion2md.git"
-authors = ["echo724 <eunchan1001@gmail.com>"]
+license = {text = "MIT"}
+authors = [{name = "echo724", email = "eunchan1001@gmail.com"}]
 readme = "README.md"
-exclude = ["Test/test_*"]
+requires-python = ">=3.7"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent", 
+    "Programming Language :: Python :: 3.9"
+]
+dependencies = [
+    "notion-client>=1.0.0",
+    "cleo>=1.0.0a4",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.7, <4"
-notion-client = ">=1.0.0"
-cleo = ">=1.0.0a4"
+[project.urls]
+Homepage = "https://github.com/echo724/notion2md.git"
 
-[tool.poetry.scripts]
+[project.scripts]
 notion2md = 'notion2md.console.application:main'
 
-[tool.poetry.dev-dependencies]
-python-semantic-release = ">=7.23.0"
-pre-commit = ">=2.17.0"
-isort = ">=5.10.1"
-black = ">=22.1.0"
-flake8 = ">=4.0.1"
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry.group.dev.dependencies]
-black = "^23.1.0"
-
+# Keep your existing tool configurations
 [tool.isort]
 profile = "black"
 force_single_line = true
@@ -42,13 +41,3 @@ known_first_party = "notion2md"
 
 [tool.black]
 line-length = 79
-
-[tool.semantic_release]
-version_variable = [
-    "notion2md/__init__.py:__version__",
-    "pyproject.toml:version"
-]
-branch = "main"
-upload_to_pypi = true
-upload_to_release = true
-build_command = "poetry build"
