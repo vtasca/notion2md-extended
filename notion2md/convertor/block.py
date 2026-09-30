@@ -101,8 +101,10 @@ class BlockConvertor:
         info = dict()
         if "rich_text" in payload:
             info["text"] = richtext_convertor(payload["rich_text"])
-        if "icon" in payload:
-            info["icon"] = payload["icon"]["emoji"]
+        # Notion sends "icon": null on plain paragraphs, and non-emoji icons have no "emoji" key
+        icon = payload.get("icon")
+        if icon and icon.get("type") == "emoji":
+            info["icon"] = icon["emoji"]
         if "checked" in payload:
             info["checked"] = payload["checked"]
         if "expression" in payload:
@@ -196,7 +198,7 @@ def heading_3(info: dict) -> str:
 
 
 def callout(info: dict) -> str:
-    return f">{info['icon']}\n>\n>{info['text']}"
+    return f">{info.get('icon', '')}\n>\n>{info['text']}"
 
 
 def quote(info: dict) -> str:
